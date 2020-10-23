@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>User data</h1>
+<form action="/action_page.php">
+    <label for="fname">Full name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    <label for="lname">Job Category :</label><br>
+        <select name="cars" id="cars">
+            <option value="volvo">Python Developer</option>
+            <option value="saab">Java Developer</option>
+            <option value="mercedes">C Developer</option>
+            <option value="audi">Javascript Developer</option>
+        </select>
+    <br>
+    <label for="lname">Year of Experiance :</label><br>
+        <select name="cars" id="cars">
+            <option>Fresher</option>
+            <option>0 - 1 year</option>
+            <option>1 - 2 year</option>
+            <option>2 - more years</option>
+        </select>
+    <br>
+    <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday">
+    <br>
+    <label for="resume">Resume Upload :</label>
+        <input type="file">
+    <br>
+    <label for="gender">Gender :</label>
+        <select name="gender" id="gender">
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+    <br>
+    <label for="gender">Notice Period :</label>
+        <input type="text" placeholder="days after join">
+    <br>
+    <label for="gender">Expected Salary:</label>
+        <input type="text" placeholder="Enter Salary">
+    <br>
+    <input type="submit" value="Submit">
+</form> 
+{% endblock %}
