@@ -1,44 +1,106 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>User data</h1>
-<form action="/action_page.php">
-    <label for="fname">Full name:</label><br>
-    <input type="text" id="fname" name="fname" value="John"><br>
-    <label for="lname">Job Category :</label><br>
-        <select name="cars" id="cars">
-            <option value="volvo">Python Developer</option>
-            <option value="saab">Java Developer</option>
-            <option value="mercedes">C Developer</option>
-            <option value="audi">Javascript Developer</option>
-        </select>
-    <br>
-    <label for="lname">Year of Experiance :</label><br>
-        <select name="cars" id="cars">
-            <option>Fresher</option>
-            <option>0 - 1 year</option>
-            <option>1 - 2 year</option>
-            <option>2 - more years</option>
-        </select>
-    <br>
-    <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday">
-    <br>
-    <label for="resume">Resume Upload :</label>
-        <input type="file">
-    <br>
-    <label for="gender">Gender :</label>
-        <select name="gender" id="gender">
-            <option>Male</option>
-            <option>Female</option>
-        </select>
-    <br>
-    <label for="gender">Notice Period :</label>
-        <input type="text" placeholder="days after join">
-    <br>
-    <label for="gender">Expected Salary:</label>
-        <input type="text" placeholder="Enter Salary">
-    <br>
-    <input type="submit" value="Submit">
-</form> 
+{% load static %}
+
+
+	<div class="container-contact100">
+		<div class="contact100-map" style="background-image: url({% static 'user/images/bg-3.jpg' %});" data-scrollwhell="0" data-draggable="1"></div>
+
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url({% static 'user/images/bg-01.jpg' %});">
+				<span class="contact100-form-title-1">
+					Drop Your Resume
+				</span>
+
+				<span class="contact100-form-title-2">
+					Feel free to drop us a line below!
+				</span>
+			</div>
+
+			<form class="contact100-form validate-form" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+				<div class="wrap-input100 validate-input" data-validate="Name is required">
+					<span class="label-input100">Full Name:</span>
+					<input class="input100" type="text" name="fullname" placeholder="Enter full name">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Job Type Required">
+                    <span class="label-input100">Job Type:</span>
+                    <select class="input100"  name="job_type"  style="height: 45px;border: transparent;">
+                        <option></option>
+                        <option>Python Developer</option>
+                        <option>Java Developer</option>
+                        <option>C Developer</option>
+                        <option>WebDeveloper Developer</option>
+                    </select>
+					<!-- <input class="input100" type="text" name="email" placeholder="Enter email addess"> -->
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate="Experiance required">
+                    <span class="label-input100">Year of Experiance:</span>
+                    <select class="input100"  name="experiance"  style="height: 45px;border: transparent;">
+                        <option></option>
+                        <option>Fresher</option>
+                        <option>0 - 1 year</option>
+                        <option>1 - 2 year</option>
+                        <option>2 - more years</option>
+                    </select>
+				</div>
+
+                <div class="wrap-input100 validate-input" data-validate="Choose DOB">
+                    <span class="label-input100">DOB:</span>
+                    <input class="input100" type="date" name="date_of_birth">
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Choose Gender">
+                    <span class="label-input100">Gender:</span>
+                    <select class="input100"  name="gender" style="height: 45px;border: transparent;">
+                            <option></option>
+                            <option>Male</option>
+                            <option>Female</option>
+                    </select>
+                </div>
+                
+                <div class="wrap-input100 validate-input" data-validate="Enter Days after you want join">
+					<span class="label-input100">Notice Period :</span>
+					<input class="input100" type="number" name="notice" placeholder="Notice Period (Days)">
+					<span class="focus-input100"></span>
+                </div>
+                
+                <div class="wrap-input100 validate-input" data-validate="Expected Salary">
+					<span class="label-input100">Expected Salary :</span>
+					<input class="input100" type="number" name="salary" placeholder="Enter Salary">
+					<span class="focus-input100"></span>
+				</div>
+                <div class="wrap-input100 validate-input" data-validate="Upload Resume">
+                    <span class="label-input100">Upload Resume:</span>
+                    <input class="input100" type="file" name="resume">
+                </div>
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+                </div>
+                
+			</form>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+  </script>
 {% endblock %}

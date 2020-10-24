@@ -2,20 +2,13 @@
 
 {% block content %}
 <!-- table bootstratp -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css">
     <link rel="stylesheet" href="https://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
 <!--  -->
+
 <div class="container">
-    <h1>User Table</h1>
-    
-    <div id="toolbar">
-            <select class="form-control">
-                    <option value="">Export Basic</option>
-                    <option value="all">Export All</option>
-                    <option value="selected">Export Selected</option>
-            </select>
-    </div>
+    <h1>Stock Out </h1>
     
     <table id="table" 
                  data-toggle="table"
@@ -28,26 +21,58 @@
         <thead>
             <tr>
                 <th data-field="state" data-checkbox="true"></th>
-                <th data-field="prenom" data-filter-control="input" data-sortable="true">Name</th>
-                <th data-field="date" data-filter-control="select" data-sortable="true">Gender</th>
-                <th data-field="examen" data-filter-control="select" data-sortable="true">Job Category</th>
-                <th data-field="note" data-sortable="true">Year of Experiance</th>
-                <th data-field="cv">Resume</th>
-                <th>Action</th>
+                <th data-field="prenom" >Name</th>
+                <th data-field="date" >Date</th>
+                <th data-field="examen" data-filter-control="select" data-sortable="true">Serial Number</th>
+                <th data-field="note" data-sortable="true">Clientel</th>
+          <th data-field="phone" >Phone Number</th>
+          <th data-field="price" >Price</th>
             </tr>
         </thead>
-        <!-- {% %} -->
         <tbody>
             <tr>
                 <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
                 <td>Jitender</td>
                 <td>01/09/2015</td>
-                <td>Français</td>
-                <td>12/20</td>
+                <td>9876</td>
+                <td>Jendie</td>
+          <td>071234567</td>
+          <td>4500</td>
             </tr>
+            <tr>
+                <td class="bs-checkbox "><input data-index="1" name="btSelectItem" type="checkbox"></td>
+                <td>Jahid</td>
+                <td>05/09/2015</td>
+                <td>1234</td>
+                <td>Style</td>
+          <td>071234567</td>
+          <td>4500</td>
+            </tr>
+            <tr>
+                <td class="bs-checkbox "><input data-index="2" name="btSelectItem" type="checkbox"></td>
+                <td>Valentin</td>
+                <td>05/09/2015</td>
+                <td>9876</td>
+                <td>jendie</td>
+          <td>071234567</td>
+          <td>4500</td>
+            </tr>
+            <tr>
+                <td class="bs-checkbox "><input data-index="3" name="btSelectItem" type="checkbox"></td>
+                <td>Milton</td>
+                <td>05/09/2015</td>
+                <td>2345</td>
+                <td>Space</td>
+          <td>071234567</td>
+          <td>4500</td>
+            </tr>
+            
+            
+            
         </tbody>
     </table>
     </div>
+
 <script>
 
 var $table = $('#table');

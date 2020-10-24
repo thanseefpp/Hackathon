@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth.models import User,auth
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from user.models import *
 # Create your views here.
 
 def adminlogin(request):
@@ -12,7 +16,7 @@ def adminlogin(request):
         password = request.POST['password']
         user=authenticate(username=username,password=password)
         if user:
-            login(request.user)
+            login(request,user)
             return redirect('admindash')
 
         else:
@@ -35,4 +39,9 @@ def adminlogout(request):
 
 
 def userlist(request):
-    return render(request,'userlist.html')
+    if request.user.is_superuser:
+        resume = Resumes.objects.all()
+        return render(request,'userlist.html',{'resume':resume})
+    else:
+        return redirect(adminlogin)
+    
