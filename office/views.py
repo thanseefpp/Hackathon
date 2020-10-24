@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from user.models import *
 from django.core.files import File
+import requests
+from django.http import JsonResponse
+import json
 # Create your views here.
 
 def adminlogin(request):
@@ -25,7 +28,7 @@ def adminlogin(request):
 
         if cap_json['success']==False:
             messages.error(request,"Invalid Captcha Try Again")
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect("/admin/")
 
         if user:
             login(request,user)
