@@ -18,7 +18,7 @@
 				</span>
 			</div>
 
-			<form class="contact100-form validate-form" method="POST" enctype="multipart/form-data">
+			<form id="form-00" class="contact100-form validate-form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 				<div class="wrap-input100 validate-input" data-validate="Name is required">
 					<span class="label-input100">Full Name:</span>
@@ -78,7 +78,22 @@
                     <span class="label-input100">Upload Resume:</span>
                     <input class="input100" type="file" name="resume">
                 </div>
-				<div class="container-contact100-form-btn">
+
+                <!-- <div class="wrap-input100 validate-input" data-validate="Phone Number is required">
+					<span class="label-input100">Mobile Number:</span>
+                    <input class="input100" type="tel" id="myphone" name="mobile" placeholder="Enter Phone Number" pattern="[6-9]{1}[0-9]{9}">
+                    <span class="focus-input100"></span>
+                </div>
+                <div id="myDIV" class="wrap-input100" data-validate="OTP is required">
+                    <input class="input100" type="tel" name="otp" placeholder="OTP">
+                    <span class="focus-input100"></span>
+                </div>
+                <button class="btn btn-info">Verify OTP</button>
+  -->           
+                <div class="wrap-input100">
+                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                </div>
+				<div class="container-contact100-form-btn hidden">
 					<button class="contact100-form-btn">
 						<span>
 							Submit
@@ -92,9 +107,38 @@
 	</div>
 
 
+<div id="dropDownSelect1"></div>
 
-	<div id="dropDownSelect1"></div>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- <style>
+    #myDIV{
+        display: none;
+    }
+</style>
+<script>
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        x.style.display = "block"
+    
+        var mobile= document.getElementById("myphone").value
 
+        var url='/mobile/' 
+        fetch(url,{
+            method:'POST',
+            headers:{'X-CSRFToken':csrftoken,
+            'content-Type':'application/json',
+            },
+            body:JSON.stringify({'mobile':mobile})
+        })
+        .then((response) =>{
+            return response.json()
+        })
+        .then((data) =>{
+            console.log("otp send")
+        })
+    }
+
+</script>
 
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -102,5 +146,5 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-23581568-13');
-  </script>
+  </script> -->
 {% endblock %}

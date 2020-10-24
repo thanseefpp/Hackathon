@@ -14,6 +14,7 @@ class Resumes(models.Model):
     expected_salary = models.IntegerField(default=0,null=True,blank=True)
     status = models.CharField(default='Pending',max_length =200,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    mobile = models.IntegerField(default=0,null=True,blank=True)
 
     def __str__(self):
         return str(self.id)
