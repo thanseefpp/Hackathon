@@ -30,7 +30,8 @@ def adminlogin(request):
 
 def admindash(request):
     if request.user.is_superuser:
-        return render(request,'admindash.html')
+        resume = Resumes.objects.all()
+        return render(request,'admindash.html',{'resume':resume})
     else:
         return redirect(adminlogin)
 
