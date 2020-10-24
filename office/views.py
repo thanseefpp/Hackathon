@@ -41,7 +41,16 @@ def adminlogout(request):
 def userlist(request):
     if request.user.is_superuser:
         resume = Resumes.objects.all()
+
         return render(request,'userlist.html',{'resume':resume})
+    else:
+        return redirect(adminlogin)
+    
+def shortlist(request):
+    if request.user.is_superuser:
+        resume = Resumes.objects.filter(status=1)
+        
+        return render(request,'shortlist.html',{'resume':resume})
     else:
         return redirect(adminlogin)
     

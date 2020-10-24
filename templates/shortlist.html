@@ -1,5 +1,199 @@
-{% extends 'base.html' %}
+{% extends 'adminbase.html' %}
 
 {% block content %}
-    <h1>shortlist</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<div style="padding-top: 50px;">
+
+
+        <table class="table">
+          <thead>
+            <tr class="filters">
+              <!-- <th>Assigned User
+                <select id="assigned-user-filter" class="form-control">
+                  <option>None</option>
+                  <option>John</option>
+                  <option>Rob</option>
+                  <option>Larry</option>
+                  <option>Donald</option>
+                  <option>Roger</option>
+                </select>
+              </th> -->
+              <th>Gender
+                <select id="status-filter" class="form-control">
+                    <option >None</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  
+                </select>
+              </th>
+              
+              <th>Job category
+                <select id="milestone-filter" class="form-control">
+                  <option>None</option>
+                  <option>Python developer</option>
+                  <option>Java Developer</option>
+                  <option>Web developer</option>
+                </select>
+              </th>
+              <th>Experience
+                <select id="priority-filter" class="form-control">
+                  <option>Any</option>
+                  <option>0-1</option>
+                  <option>1-2</option>
+                  <option>2-more</option>
+                  
+                </select>
+              </th>
+              
+            </tr>
+          </thead>
+        </table>
+      
+      
+      <div class="panel panel-primary filterable">
+        <table id="task-list-tbl" class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Date of Birth</th>
+              <th>Job category</th>
+              <th>Experience</th>
+              <th>Resume</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            {% for resume in resume %}
+            <tr id="task-1"
+                class="task-list-row" 
+                data-task-id="1"
+                data-user="Larry"
+                data-status="In Progress"
+                data-milestone="Milestone 2"
+                data-priority="Urgent"
+                data-tags="Tag 2">
+
+              <td>{{resume.full_name}}</td>
+              <td>{{resume.gender_type}}</td>
+              <td>{{resume.dob}}</td>
+              <td>{{resume.job_type}}</td>
+              <td>{{resume.year_of_experiance}}</td>
+              <td><a href="">{{resume.resume}}</a></td>
+              <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      status
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">shortlisted</a>
+                      <!-- <a class="dropdown-item" href="#">Short listed</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Separated link</a> -->
+                    </div>
+                  </div>
+              </td>
+            </tr>
+            {% endfor%}
+          </tbody>
+        </table>
+      </div>
+
+</div>
+
+  <!-- script table -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <!-- script table -->
+
+<style>
+.filterable {
+  margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+  margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+  background-color: transparent;
+  border: none;
+  cursor: auto;
+  box-shadow: none;
+  padding: 0;
+  height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+  color: #333;
+}
+  </style>
+  <script>
+      var
+  filters = {
+    user: null,
+    status: null,
+    milestone: null,
+    priority: null,
+    tags: null
+  };
+
+function updateFilters() {
+  $('.task-list-row').hide().filter(function() {
+    var
+      self = $(this),
+      result = true; // not guilty until proven guilty
+    
+    Object.keys(filters).forEach(function (filter) {
+      if (filters[filter] && (filters[filter] != 'None') && (filters[filter] != 'Any')) {
+        result = result && filters[filter] === self.data(filter);
+      }
+    });
+
+    return result;
+  }).show();
+}
+
+function changeFilter(filterName) {
+  filters[filterName] = this.value;
+  updateFilters();
+}
+
+// Assigned User Dropdown Filter
+$('#assigned-user-filter').on('change', function() {
+  changeFilter.call(this, 'user');
+});
+
+// Task Status Dropdown Filter
+$('#status-filter').on('change', function() {
+  changeFilter.call(this, 'status');
+});
+
+// Task Milestone Dropdown Filter
+$('#milestone-filter').on('change', function() {
+  changeFilter.call(this, 'milestone');
+});
+
+// Task Priority Dropdown Filter
+$('#priority-filter').on('change', function() {
+  changeFilter.call(this, 'priority');
+});
+
+// Task Tags Dropdown Filter
+$('#tags-filter').on('change', function() {
+  changeFilter.call(this, 'tags');
+});
+
+/*
+future use for a text input filter
+$('#search').on('click', function() {
+    $('.box').hide().filter(function() {
+        return $(this).data('order-number') == $('#search-criteria').val().trim();
+    }).show();
+});*/
+  </script>
 {% endblock %}
