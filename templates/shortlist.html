@@ -7,38 +7,37 @@
 
 <div class="container-fluid">
     <div >
-      
-        <table class="table">
-          <thead>
-            <tr class="filters">
-              <th>Gender
-                <select id="assigned-user-filter" class="form-control">
-                  <option>None</option>
-                  {% for user in resume %}
-                  <option>{{user.gender_type}}</option>
-                    {% endfor %}
-                </select>
-              </th>
-              <th>Job Type
-                <select id="status-filter" class="form-control">
-                  <option>Any</option>
-                  {% for i in resume %}
-                  <option>{{i.job_type}}</option>
-                {% endfor %}
-                </select>
-              </th>
-              <th>Experiance
-                <select id="milestone-filter" class="form-control">
-                  <option>None</option>
-                  {% for exp in resume %}
-                  <option>{{exp.year_of_experiance}}</option>
-                  {% endfor %}
-                </select>
-              </th>
-            </tr>
-          </thead>
-        </table>
-      
+      <table class="table">
+        <thead>
+          <tr class="filters">
+            <th>Gender
+              <select id="assigned-user-filter" class="form-control">
+                <option>None</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </th>
+            <th>Job Type
+              <select id="status-filter" class="form-control">
+                <option>Any</option>
+                <option>Python Developer</option>
+                <option>GO Developer</option>
+                <option>Web Developer</option>
+              </select>
+            </th>
+            <th>Experiance
+              <select id="milestone-filter" class="form-control">
+                <option>None</option>
+                <option>Fresher</option>
+                <option>0 - 1 year</option>
+                <option>1 - 2 year</option>
+                <option>2 - 3</option>
+                <option>3 - more years</option>
+              </select>
+            </th>
+          </tr>
+        </thead>
+      </table>
       
       <div class="panel panel-primary filterable">
         <table id="task-list-tbl" class="table">

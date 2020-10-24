@@ -14,25 +14,26 @@
               <th>Gender
                 <select id="assigned-user-filter" class="form-control">
                   <option>None</option>
-                  {% for user in resume %}
-                  <option>{{user.gender_type}}</option>
-                    {% endfor %}
+                  <option>Male</option>
+                  <option>Female</option>
                 </select>
               </th>
               <th>Job Type
                 <select id="status-filter" class="form-control">
                   <option>Any</option>
-                  {% for i in resume %}
-                  <option>{{i.job_type}}</option>
-                {% endfor %}
+                  <option>Python Developer</option>
+                  <option>GO Developer</option>
+                  <option>Web Developer</option>
                 </select>
               </th>
               <th>Experiance
                 <select id="milestone-filter" class="form-control">
                   <option>None</option>
-                  {% for exp in resume %}
-                  <option>{{exp.year_of_experiance}}</option>
-                  {% endfor %}
+                  <option>Fresher</option>
+                  <option>0 - 1 year</option>
+                  <option>1 - 2 year</option>
+                  <option>2 - 3</option>
+                  <option>3 - more years</option>
                 </select>
               </th>
             </tr>

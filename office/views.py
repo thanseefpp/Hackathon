@@ -30,8 +30,12 @@ def adminlogin(request):
 
 def admindash(request):
     if request.user.is_superuser:
-        resume = Resumes.objects.all()
-        return render(request,'admindash.html',{'resume':resume})
+        resumecount = Resumes.objects.all().count()
+        pythondeveloper = Resumes.objects.filter(job_type='Python Developer').count()
+        godeveloper = Resumes.objects.filter(job_type='GO Developer').count()
+        webdeveloper = Resumes.objects.filter(job_type='Web Developer').count()
+        context = {'resumecount':resumecount,'pythondeveloper':pythondeveloper,'webdeveloper':webdeveloper,'godeveloper':godeveloper}
+        return render(request,'admindash.html',context)
     else:
         return redirect(adminlogin)
 
@@ -43,7 +47,6 @@ def adminlogout(request):
 def userlist(request):
     if request.user.is_superuser:
         resume = Resumes.objects.filter(status='Pending')
-
         return render(request,'userlist.html',{'resume':resume})
     else:
         return redirect(adminlogin)
