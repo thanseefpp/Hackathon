@@ -91,7 +91,12 @@
                 <button class="btn btn-info">Verify OTP</button>
   -->           
                 <div class="wrap-input100">
-                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                    <div class="g-recaptcha" data-sitekey="6LfWINsZAAAAAJtSy_CN-O0Tp9dWqnjylAJ1EDTW"></div>
+                </div>
+                <div>
+                    {% for message in messages %}
+                    <h4 style="color: red; size: 10px;">{{message}}</h4>
+                    {% endfor %}
                 </div>
 				<div class="container-contact100-form-btn hidden">
 					<button class="contact100-form-btn">
@@ -109,7 +114,7 @@
 
 <div id="dropDownSelect1"></div>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <!-- <style>
     #myDIV{
         display: none;

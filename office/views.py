@@ -16,6 +16,17 @@ def adminlogin(request):
         username = request.POST['username']
         password = request.POST['password']
         user=authenticate(username=username,password=password)
+        captcha_token=request.POST.get("g-recaptcha-response")
+        cap_url="https://www.google.com/recaptcha/api/siteverify"
+        cap_secret="6LfWINsZAAAAAPjbqASGnDDad7sTnIA92xzau9TW"
+        cap_data={"secret":cap_secret,"response":captcha_token}
+        cap_server_response=requests.post(url=cap_url,data=cap_data)
+        cap_json=json.loads(cap_server_response.text)
+
+        if cap_json['success']==False:
+            messages.error(request,"Invalid Captcha Try Again")
+            return HttpResponseRedirect("/")
+
         if user:
             login(request,user)
             return redirect('admindash')

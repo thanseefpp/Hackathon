@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.files import File
 from django.core.files.storage import FileSystemStorage
 from .models import *
@@ -21,6 +22,17 @@ def index(request):
         resume = request.FILES.get('resume')
 
         userinfo = Resumes(expected_salary=salary,notice_period=notice,gender_type=gender,full_name=fullname,job_type=job_type,year_of_experiance=experiance,dob=date_of_birth,resume=resume)
+        captcha_token=request.POST.get("g-recaptcha-response")
+        cap_url="https://www.google.com/recaptcha/api/siteverify"
+        cap_secret="6LfWINsZAAAAAPjbqASGnDDad7sTnIA92xzau9TW"
+        cap_data={"secret":cap_secret,"response":captcha_token}
+        cap_server_response=requests.post(url=cap_url,data=cap_data)
+        cap_json=json.loads(cap_server_response.text)
+
+        if cap_json['success']==False:
+            messages.error(request,"Invalid Captcha Try Again")
+            return HttpResponseRedirect("/")
+
         userinfo.save()
         return render(request,'success.html')
 
