@@ -12,7 +12,7 @@ class Resumes(models.Model):
     gender_type = models.CharField(max_length =200,null=True)
     notice_period = models.IntegerField(default=0,null=True,blank=True)
     expected_salary = models.IntegerField(default=0,null=True,blank=True)
-    status = models.IntegerField(default=0,null=True,blank=True)
+    status = models.CharField(default='Pending',max_length =200,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

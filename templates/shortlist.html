@@ -1,50 +1,40 @@
 {% extends 'adminbase.html' %}
 
 {% block content %}
+<!-- <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-<div style="padding-top: 50px;">
+<div style="padding-top: 80px;"></div>
 
-
+<div class="container-fluid">
+    <div >
+      
         <table class="table">
           <thead>
             <tr class="filters">
-              <!-- <th>Assigned User
+              <th>Gender
                 <select id="assigned-user-filter" class="form-control">
                   <option>None</option>
-                  <option>John</option>
-                  <option>Rob</option>
-                  <option>Larry</option>
-                  <option>Donald</option>
-                  <option>Roger</option>
-                </select>
-              </th> -->
-              <th>Gender
-                <select id="status-filter" class="form-control">
-                    <option >None</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  
+                  {% for user in resume %}
+                  <option>{{user.gender_type}}</option>
+                    {% endfor %}
                 </select>
               </th>
-              
-              <th>Job category
+              <th>Job Type
+                <select id="status-filter" class="form-control">
+                  <option>Any</option>
+                  {% for i in resume %}
+                  <option>{{i.job_type}}</option>
+                {% endfor %}
+                </select>
+              </th>
+              <th>Experiance
                 <select id="milestone-filter" class="form-control">
                   <option>None</option>
-                  <option>Python developer</option>
-                  <option>Java Developer</option>
-                  <option>Web developer</option>
+                  {% for exp in resume %}
+                  <option>{{exp.year_of_experiance}}</option>
+                  {% endfor %}
                 </select>
               </th>
-              <th>Experience
-                <select id="priority-filter" class="form-control">
-                  <option>Any</option>
-                  <option>0-1</option>
-                  <option>1-2</option>
-                  <option>2-more</option>
-                  
-                </select>
-              </th>
-              
             </tr>
           </thead>
         </table>
@@ -52,55 +42,46 @@
       
       <div class="panel panel-primary filterable">
         <table id="task-list-tbl" class="table">
-          <thead>
+          <thead style="background-color: #00bcd4; color: white;">
             <tr>
               <th>Name</th>
               <th>Gender</th>
               <th>Date of Birth</th>
-              <th>Job category</th>
-              <th>Experience</th>
+              <th>Job Type</th>
+              <th>Experiance</th>
               <th>Resume</th>
-              <th>Action</th>
+              <th>ExpectedSalary</th>
+              <th>Notice Period</th>
             </tr>
           </thead>
           
           <tbody>
-            {% for resume in resume %}
+            {% for item in resume %}
             <tr id="task-1"
                 class="task-list-row" 
-                data-task-id="1"
-                data-user="Larry"
-                data-status="In Progress"
-                data-milestone="Milestone 2"
-                data-priority="Urgent"
-                data-tags="Tag 2">
-
-              <td>{{resume.full_name}}</td>
-              <td>{{resume.gender_type}}</td>
-              <td>{{resume.dob}}</td>
-              <td>{{resume.job_type}}</td>
-              <td>{{resume.year_of_experiance}}</td>
-              <td><a href="">{{resume.resume}}</a></td>
+                data-task-id="{{item.full_name}}"
+                data-user="{{item.gender_type}}"
+                data-status="{{item.job_type}}"
+                data-milestone="{{item.year_of_experiance}}">
+              <td>{{item.full_name}}</td>
+              <td>{{item.gender_type}}</td>
+              <td>{{item.dob|date:'Y-m-d'}}</td>
+              <td>{{item.job_type}}</td>
+              <td>{{item.year_of_experiance}}</td>
               <td>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      status
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">shortlisted</a>
-                      <!-- <a class="dropdown-item" href="#">Short listed</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Separated link</a> -->
-                    </div>
-                  </div>
-              </td>
+                {% if item.resume %}
+                  <a href="{{item.resume.url}}">Resume</a>
+                {% endif %}
+                </td>
+              <td>{{item.expected_salary}}</td>
+              <td>{{item.notice_period}}</td>
             </tr>
-            {% endfor%}
+            {% endfor %}
           </tbody>
         </table>
       </div>
 
+</div>
 </div>
 
   <!-- script table -->

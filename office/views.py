@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from user.models import *
+from django.core.files import File
 # Create your views here.
 
 def adminlogin(request):
@@ -40,17 +41,27 @@ def adminlogout(request):
 
 def userlist(request):
     if request.user.is_superuser:
-        resume = Resumes.objects.all()
+        resume = Resumes.objects.filter(status='Pending')
 
         return render(request,'userlist.html',{'resume':resume})
     else:
         return redirect(adminlogin)
     
+
 def shortlist(request):
     if request.user.is_superuser:
-        resume = Resumes.objects.filter(status=1)
-        
+        resume = Resumes.objects.filter(status='shortlist')
         return render(request,'shortlist.html',{'resume':resume})
     else:
         return redirect(adminlogin)
     
+
+def approve(request,id):
+    if request.user.is_superuser:
+        resume = Resumes.objects.get(id=id)
+        resume.status = 'shortlist'
+        resume.save()
+        return redirect(userlist)
+    else:
+        return redirect(adminlogin)
+

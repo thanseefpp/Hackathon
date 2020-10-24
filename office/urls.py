@@ -6,5 +6,7 @@ urlpatterns = [
     path('adminlogout/',views.adminlogout,name='adminlogout'),
     path('admin/dashboard/',views.admindash,name='admindash'),
     path('admin/user/',views.userlist,name='userlist'),
-    path('admin//shortlist',views.shortlist,name='shortlist'),
+    path('admin/shortlist',views.shortlist,name='shortlist'),
+    path('approve/<int:id>/',views.approve,name='approve'),
+
 ]
