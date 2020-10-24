@@ -1,95 +1,243 @@
 {% extends 'adminbase.html' %}
 
 {% block content %}
-<!-- table bootstratp -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.0/bootstrap-table.min.css">
-    <link rel="stylesheet" href="https://rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css">
-<!--  -->
+<link rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<div style="padding-top: 50px;">
 
-<div class="container">
-    <h1>Stock Out </h1>
+
+        <table class="table">
+          <thead>
+            <tr class="filters">
+              <th>Assigned User
+                <select id="assigned-user-filter" class="form-control">
+                  <option>None</option>
+                  <option>John</option>
+                  <option>Rob</option>
+                  <option>Larry</option>
+                  <option>Donald</option>
+                  <option>Roger</option>
+                </select>
+              </th>
+              <th>Status
+                <select id="status-filter" class="form-control">
+                  <option>Any</option>
+                  <option>Not Started</option>
+                  <option>In Progress</option>
+                  <option>Completed</option>
+                </select>
+              </th>
+              <th>Milestone
+                <select id="milestone-filter" class="form-control">
+                  <option>None</option>
+                  <option>Milestone 1</option>
+                  <option>Milestone 2</option>
+                  <option>Milestone 3</option>
+                </select>
+              </th>
+              <th>Priority
+                <select id="priority-filter" class="form-control">
+                  <option>Any</option>
+                  <option>Low</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Urgent</option>
+                </select>
+              </th>
+              <th>Tags
+                <select id="tags-filter" class="form-control">
+                  <option>None</option>
+                  <option>Tag 1</option>
+                  <option>Tag 2</option>
+                  <option>Tag 3</option>
+                </select>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      
+      
+      <div class="panel panel-primary filterable">
+        <table id="task-list-tbl" class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Milestone</th>
+              <th>Assigned User</th>
+              <th>Tags</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            
+            <tr id="task-1"
+                class="task-list-row" 
+                data-task-id="1"
+                data-user="Larry"
+                data-status="In Progress"
+                data-milestone="Milestone 2"
+                data-priority="Urgent"
+                data-tags="Tag 2">
+              <td>Task title 1</td>
+              <td>01/24/2015</td>
+              <td>09/24/2015</td>
+              <td>Urgent</td>
+              <td>Milestone 2</td>
+              <td>Larry</td>
+              <td>Tag 2</td>
+            </tr>
+            
+            <tr id="task-2"
+                class="task-list-row" 
+                data-task-id="2"
+                data-user="Larry"
+                data-status="Not Started"
+                data-milestone="Milestone 2"
+                data-priority="Low"
+                data-tags="Tag 1">
+              <td>Task title 2</td>
+              <td>03/14/2015</td>
+              <td>09/18/2015</td>
+              <td>Low</td>
+              <td>Milestone 2</td>
+              <td>Larry</td>
+              <td>Tag 1</td>
+            </tr>
+            
+            <tr id="task-3"
+                class="task-list-row" 
+                data-task-id="3"
+                data-user="Donald"
+                data-status="Not Started"
+                data-milestone="Milestone 1"
+                data-priority="Low"
+                data-tags="Tag 3">
+              <td>Task title 3</td>
+              <td>11/16/2014</td>
+              <td>02/29/2015</td>
+              <td>Low</td>
+              <td>Milestone 1</td>
+              <td>Donald</td>
+              <td>Tag 3</td>
+            </tr>
+            
+            
+            <tr id="task-4"
+                class="task-list-row" 
+                data-task-id="4"
+                data-user="Donald"
+                data-status="Completed"
+                data-milestone="Milestone 1"
+                data-priority="High"
+                data-tags="Tag 1">
+              <td>Task title 4</td>
+              <td>11/16/2014</td>
+              <td>02/29/2015</td>
+              <td>High</td>
+              <td>Milestone 1</td>
+              <td>Donald</td>
+              <td>Tag 1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+</div>
+
+  <!-- script table -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <!-- script table -->
+
+<style>
+.filterable {
+  margin-top: 15px;
+}
+.filterable .panel-heading .pull-right {
+  margin-top: -20px;
+}
+.filterable .filters input[disabled] {
+  background-color: transparent;
+  border: none;
+  cursor: auto;
+  box-shadow: none;
+  padding: 0;
+  height: auto;
+}
+.filterable .filters input[disabled]::-webkit-input-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]::-moz-placeholder {
+  color: #333;
+}
+.filterable .filters input[disabled]:-ms-input-placeholder {
+  color: #333;
+}
+  </style>
+  <script>
+      var
+  filters = {
+    user: null,
+    status: null,
+    milestone: null,
+    priority: null,
+    tags: null
+  };
+
+function updateFilters() {
+  $('.task-list-row').hide().filter(function() {
+    var
+      self = $(this),
+      result = true; // not guilty until proven guilty
     
-    <table id="table" 
-                 data-toggle="table"
-                 data-search="true"
-                 data-filter-control="true" 
-                 data-show-export="true"
-                 data-click-to-select="true"
-                 data-toolbar="#toolbar"
-           class="table-responsive">
-        <thead>
-            <tr>
-                <th data-field="state" data-checkbox="true"></th>
-                <th data-field="prenom" >Name</th>
-                <th data-field="date" >Date</th>
-                <th data-field="examen" data-filter-control="select" data-sortable="true">Serial Number</th>
-                <th data-field="note" data-sortable="true">Clientel</th>
-          <th data-field="phone" >Phone Number</th>
-          <th data-field="price" >Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="bs-checkbox "><input data-index="0" name="btSelectItem" type="checkbox"></td>
-                <td>Jitender</td>
-                <td>01/09/2015</td>
-                <td>9876</td>
-                <td>Jendie</td>
-          <td>071234567</td>
-          <td>4500</td>
-            </tr>
-            <tr>
-                <td class="bs-checkbox "><input data-index="1" name="btSelectItem" type="checkbox"></td>
-                <td>Jahid</td>
-                <td>05/09/2015</td>
-                <td>1234</td>
-                <td>Style</td>
-          <td>071234567</td>
-          <td>4500</td>
-            </tr>
-            <tr>
-                <td class="bs-checkbox "><input data-index="2" name="btSelectItem" type="checkbox"></td>
-                <td>Valentin</td>
-                <td>05/09/2015</td>
-                <td>9876</td>
-                <td>jendie</td>
-          <td>071234567</td>
-          <td>4500</td>
-            </tr>
-            <tr>
-                <td class="bs-checkbox "><input data-index="3" name="btSelectItem" type="checkbox"></td>
-                <td>Milton</td>
-                <td>05/09/2015</td>
-                <td>2345</td>
-                <td>Space</td>
-          <td>071234567</td>
-          <td>4500</td>
-            </tr>
-            
-            
-            
-        </tbody>
-    </table>
-    </div>
+    Object.keys(filters).forEach(function (filter) {
+      if (filters[filter] && (filters[filter] != 'None') && (filters[filter] != 'Any')) {
+        result = result && filters[filter] === self.data(filter);
+      }
+    });
 
-<script>
+    return result;
+  }).show();
+}
 
-var $table = $('#table');
-    $(function () {
-        $('#toolbar').find('select').change(function () {
-            $table.bootstrapTable('refreshOptions', {
-                exportDataType: $(this).val()
-            });
-        });
-    })
+function changeFilter(filterName) {
+  filters[filterName] = this.value;
+  updateFilters();
+}
 
-		var trBoldBlue = $("table");
+// Assigned User Dropdown Filter
+$('#assigned-user-filter').on('change', function() {
+  changeFilter.call(this, 'user');
+});
 
-	$(trBoldBlue).on("click", "tr", function (){
-			$(this).toggleClass("bold-blue");
-	});
+// Task Status Dropdown Filter
+$('#status-filter').on('change', function() {
+  changeFilter.call(this, 'status');
+});
 
-</script>
+// Task Milestone Dropdown Filter
+$('#milestone-filter').on('change', function() {
+  changeFilter.call(this, 'milestone');
+});
 
+// Task Priority Dropdown Filter
+$('#priority-filter').on('change', function() {
+  changeFilter.call(this, 'priority');
+});
+
+// Task Tags Dropdown Filter
+$('#tags-filter').on('change', function() {
+  changeFilter.call(this, 'tags');
+});
+
+/*
+future use for a text input filter
+$('#search').on('click', function() {
+    $('.box').hide().filter(function() {
+        return $(this).data('order-number') == $('#search-criteria').val().trim();
+    }).show();
+});*/
+  </script>
 {% endblock %}
